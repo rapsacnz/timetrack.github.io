@@ -9,7 +9,7 @@ const DEFAULT_SETTINGS = {
 };
 
 const SECONDS_IN_MINUTE = 60;
-const TIMER_MILLISECONDS = 200;
+const TIMER_MILLISECONDS = 1000;
 
 // State management
 let settings = { ...DEFAULT_SETTINGS };
