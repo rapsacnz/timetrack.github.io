@@ -5,7 +5,8 @@ const DEFAULT_SETTINGS = {
     playTimes: [1, 1, 10, 10],
     breakTimes: [1, 2, 2],
     downTime: 2,
-    warnBellTime: 0.5
+    warnBellTime: 0.5,
+    testMode: false
 };
 
 const SECONDS_IN_MINUTE = 60;
@@ -24,6 +25,7 @@ let timerInterval = null;
 let resetInterval = null;
 let timeline = [];
 let timeLineIndex = 0;
+let timerTick = TIMER_MILLISECONDS;
 
 // DOM elements
 const startPauseBtn = document.getElementById('startPauseBtn');
@@ -62,6 +64,7 @@ const quarterLengthInput = document.getElementById('quarterLength');
 const breakTimesInput = document.getElementById('breakTimes');
 const downtimeInput = document.getElementById('downtime');
 const warningBellInput = document.getElementById('warningBell');
+const testModeInput = document.getElementById('testMode');
 const bellButton = document.getElementById('bellButton');
 
 const warningSection = document.getElementById('warningSection');
@@ -122,6 +125,8 @@ function init() {
         new Option(option.fullName, option.fullName, index == 0)
       )
     );
+
+    timerTick = settings.testMode ? 100 : timerTick;
     
     // Update UI
     updateUI();
@@ -211,7 +216,7 @@ function startTimer() {
         
         updateUI();
 
-    }, TIMER_MILLISECONDS);
+    }, timerTick);
 }
 
 
@@ -320,6 +325,7 @@ function updateSettingsForm() {
     breakTimesInput.value = settings.breakTimes.join(',');
     downtimeInput.value = settings.downTime;
     warningBellInput.value = settings.warnBellTime;
+    testMode.value = settings.testMode;
 }
 
 // Reset to factory defaults
@@ -341,6 +347,7 @@ function saveSettings() {
         .filter(val => val > 0);
     const downtime = parseInt(downtimeInput.value) || 1;
     const warningBell = parseFloat(warningBellInput.value) || 0.5;
+    const testMode = testModeInput.value;
     
     // Update settings
     settings = {
@@ -349,14 +356,15 @@ function saveSettings() {
         playTimes: Array(quartersPerGame).fill(quarterLength),
         breakTimes: breakTimes,
         downTime: downtime,
-        warnBellTime: warningBell
+        warnBellTime: warningBell,
+        testMode: testMode
     };
     
     // Save to localStorage
     localStorage.setItem('scheduleDefaults', JSON.stringify(settings));
     
     // Show confirmation
-    showToast("✅ Settings saved. Reset timeline to apply changes.", "success");
+    showToast("✅ Settings saved. Reload to apply changes.", "success");
     
     // Close modal
     closeSettingsModal();
