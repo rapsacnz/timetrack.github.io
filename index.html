@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Game Timer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Sports Game Timer</h1>
+        
+        <!-- Control Bar -->
+        <div class="status-bar">
+            <!-- <div class="status-section">
+                <button id="startPauseBtn" class="btn btn-start">▶️ START DAY</button>
+                <span id="pauseStatus" class="pause-status hidden">PAUSED</span>
+            </div> -->
+            
+            <div class="status-section">
+                <div class="timer-display">
+                    ⏱️ <span id="timerSegment">Not Started</span> - <span class="timer-digits" id="timerTime">00:00</span>
+                </div>
+            </div>
+            
+            <div class="status-section new-line">
+                <div class="game-progress">Game <span id="currentGame"></span>/<span id="totalGames"></span></div>
+            </div>
+                        
+            <!-- <div class="status-section">
+                <button id="addTenSecondsBtn" class="btn btn-add" disabled>+10s</button>
+            </div> -->
+            
+            <!-- <div class="status-section">
+                <button id="settingsBtn" class="btn btn-settings" title="Schedule Settings">⚙️</button>
+            </div> -->
+        </div>
+
+        <div class="control-bar">
+            <div class="control-section">
+                <button id="startPauseBtn" class="btn btn-start">▶️ START DAY</button>
+                <span id="pauseStatus" class="pause-status hidden">PAUSED</span>
+            </div>
+ 
+            <div class="control-section">
+              <label for="startFrom">Start Timer From:</label> <br />
+              <select id="startFrom" ></select>
+            </div>
+
+
+            <div class="control-section">
+                <button id="addTenSecondsBtn" class="btn btn-add" >+10s</button>
+                <button id="addThirtySecondsBtn" class="btn btn-add" >+30s</button>
+                <button id="subtractTenSecondsBtn" class="btn btn-subtract" >-10s</button>
+                <button id="subtractThirtySecondsBtn" class="btn btn-subtract" >-30s</button>
+            </div>
+
+            
+
+            <div class="control-section">
+                <button id="settingsBtn" class="btn btn-settings" title="Schedule Settings">⚙️</button>
+            </div>
+        </div>
+
+        <div id="warningSection" class="warning-section hidden">
+          <div id="warningText" style="text-align: center; display:flex;" class="warning-section-text"></div>      
+        </div>
+        
+        <!-- Settings Modal -->
+        <div id="settingsModal" class="  modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>⚙️ Schedule Settings</h2>
+                    <button id="closeModalBtn" class="close-btn">&times;</button>
+                </div>
+                
+                <div class="modal-body">
+                    <div class="settings-section">
+                        <h3>GAME STRUCTURE</h3>
+                        <div class="form-group">
+                            <label for="numGames">Number of Games</label>
+                            <input type="number" id="numGames" min="1" max="20" value="5">
+                        </div>
+                        <div class="form-group">
+                            <label for="quartersPerGame">Quarters per Game</label>
+                            <input type="number" id="quartersPerGame" min="1" max="10" value="4">
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <h3>TIMING</h3>
+                        <div class="form-group">
+                            <label for="dayStartTime">Day Start Time</label>
+                            <input type="time" id="dayStartTime" value="09:00">
+                        </div>
+                        <div class="form-group">
+                            <label for="quarterLength">Quarter Length (minutes)</label>
+                            <input type="number" id="quarterLength" min="1" max="60" value="10">
+                        </div>
+                        <div class="form-group">
+                            <label for="breakTimes">Break Times (minutes, comma-separated)</label>
+                            <input type="text" id="breakTimes" value="2,3,2">
+                        </div>
+                        <div class="form-group">
+                            <label for="downtime">Downtime (minutes)</label>
+                            <input type="number" id="downtime" min="1" max="30" value="8">
+                        </div>
+                        <div class="form-group">
+                            <label for="warningBell">Warning Bell (minutes)</label>
+                            <input type="number" id="warningBell" min="0.1" max="5.0" step="0.1" value="0.5">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button id="resetDefaultsBtn" class="btn btn-secondary">Reset to Factory Defaults</button>
+                    <div>
+                        <button id="discardChangesBtn" class="btn btn-secondary">Discard Changes</button>
+                        <button id="saveSettingsBtn" class="btn btn-primary">Save Defaults</button>
+                        <button id="resetTimelineBtn" class="btn btn-danger hidden">Reset Timeline Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Toast Notification  -->
+         <!-- hidden -->
+        <div id="toastNotification" class="toast ">
+            <span id="toastMessage"></span>
+            <button id="undoBtn" class="undo-btn hidden">Undo</button>
+            <button id="closeToastBtn" class="close-toast-btn">&times;</button>
+        </div>
+        
+        <!-- Reset Countdown -->
+        <div id="resetCountdown" class="reset-countdown hidden">
+            ⏳ Resetting timeline in <span id="countdownNumber">3</span>... 
+            <button id="cancelResetBtn" class="cancel-btn">Cancel</button>
+        </div>
+        <button id="bellButton" class="hidden">&times;</button>
+    </div>
+    
+    <script src="script.js"></script>
+
+
+</body>
+</html>
