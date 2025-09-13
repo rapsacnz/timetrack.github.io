@@ -204,20 +204,22 @@ function startTimer() {
     // Check for pre warning pips
     if (currentSegment.timeLeft <= bellPips && currentSegment.timeLeft > bellStart) {
       //playPipSound();
-      playBellSound();
+      //playBellSound();
+      triggerWarningBell();
     }
     // Check for warnings
     else if (currentSegment.timeLeft <= bellStart && currentSegment.timeLeft > hooterPips) {
       if (warning !== `${currentSegment.type} BELL}`) {
         warning = `${currentSegment.type} BELL}`
-        //playWarningBell();
+        //triggerWarningBell();
         showWarningBar(`${currentSegment.warnBellMessage} ${currentSegment.timeLeft}s!!!`);
         //playLongPipSound();
         console.log('warning bell');
       }
     }
     else if (currentSegment.timeLeft <= hooterPips && currentSegment.timeLeft > endTime) {
-      playBellSound();
+      //playBellSound();
+      triggerWarningBell();
     }
     // Check for warnings
     else if (currentSegment.timeLeft <= 0) {
@@ -302,7 +304,7 @@ function hideToast() {
   toastNotification.classList.add('hidden');
 }
 
-function playWarningBell() {
+function triggerWarningBell() {
   bellButton.click();
 }
 
