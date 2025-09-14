@@ -622,8 +622,8 @@ function resetSfx(){
 function playBellSound(){
   
   const sfx = document.getElementById('sfx');
-  sfx.removeEventListener('ended', resetSfx);
-  sfx.addEventListener('ended', resetSfx);
+  // sfx.removeEventListener('ended', resetSfx);
+  // sfx.addEventListener('ended', resetSfx);
   sfx.play();
 }
 
