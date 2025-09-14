@@ -130,7 +130,7 @@ function init() {
     )
   );
 
-  //timerTick = settings.testMode ? 100 : timerTick;
+  timerTick = settings.testMode ? 200 : timerTick;
 
   // Update UI
   updateUI();
@@ -138,6 +138,7 @@ function init() {
 
 // Toggle start/pause
 function toggleStartPause() {
+  initBellSound();
   if (!timelineActive) {
     startTimeline();
   } else if (paused) {
@@ -237,7 +238,7 @@ function startTimer() {
     // When segment ends
     if (currentSegment.timeLeft <= 0) {
       // Move to next segment
-      currentSegment = { type: "Next Segment", timeLeft: SECONDS_IN_MINUTE };
+      // currentSegment = { type: "Next Segment", timeLeft: SECONDS_IN_MINUTE };
       timeLineIndex++;
       currentSegment = timeline[timeLineIndex];
     }
@@ -378,7 +379,7 @@ function saveSettings() {
     .filter(val => val > 0);
   const downtime = parseInt(downtimeInput.value) || 1;
   const warningBell = parseFloat(warningBellInput.value) || 0.5;
-  const testMode = testModeInput.value;
+  const testMode = testModeInput.checked ? true : false;
 
   // Update settings
   settings = {
@@ -617,6 +618,12 @@ function resetSfx(){
   sfx.currentTime=0;
 }
 
+function initBellSound(){
+  const sfx = document.getElementById('sfx');
+  sfx.play();
+  sfx.pause();
+  sfx.currentTime = 0;
+}
 
 
 function playBellSound(){
