@@ -69,6 +69,8 @@ const downtimeInput = document.getElementById('downtime');
 const warningBellInput = document.getElementById('warningBell');
 const testModeInput = document.getElementById('testMode');
 const bellButton = document.getElementById('bellButton');
+const testSoundButton = document.getElementById('testSound');
+
 
 const warningSection = document.getElementById('warningSection');
 const warningText = document.getElementById('warningText');
@@ -114,6 +116,7 @@ function init() {
   cancelResetBtn.addEventListener('click', cancelReset);
   bellButton.addEventListener('click', playBellSound);
   startFromSelect.addEventListener('change', handleStartFromChange);
+  testSoundButton.addEventListener('click', playBellSound);
 
   // Close modal when clicking outside
   settingsModal.addEventListener('click', (e) => {
@@ -556,19 +559,19 @@ function resetSfx(){
 }
 
 function initBellSound(){
-  sfx = document.getElementById('sfx');
-  sfx.addEventListener('ended',(e) => {
-      sfx.currentTime = 0;
-  });
-  sfx.play();
-  sfx.pause();
+  // sfx = document.getElementById('sfx');
+  // sfx.addEventListener('ended',(e) => {
+  //     sfx.currentTime = 0;
+  // });
+  // sfx.play();
+  // sfx.pause();
   
 }
 
 
 function playBellSound(){
-  sfx = document.getElementById('sfx');
-  sfx.play();
+  playBbcPips();
+
 }
 
 
@@ -577,101 +580,55 @@ function playBellSound(){
 document.addEventListener('DOMContentLoaded', init);
 
 
+// Function to play a single pip
+function playPip(duration, delay, frequency = 880, endCallback = null) {
+  const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+  const oscillator = audioContext.createOscillator();
+  const gainNode = audioContext.createGain();
 
+  // Connect the oscillator to the gain node and then to the speakers
+  oscillator.connect(gainNode);
+  gainNode.connect(audioContext.destination);
 
+  // Set the frequency and type of the sound wave
+  oscillator.frequency.value = frequency;
+  oscillator.type = 'sine'; // A sine wave sounds clean and clear
 
-// function playBellSound() {
-//   // Create an oscillator node to generate the sound wave
-//   const oscillator = audioContext.createOscillator();
-//   // Create a gain node to control the volume
-//   const gainNode = audioContext.createGain();
+  // Schedule the start and stop of the sound
+  const startTime = audioContext.currentTime + delay;
+  oscillator.start(startTime);
+  oscillator.stop(startTime + duration);
 
-//   // Connect the oscillator to the gain node, and the gain node to the speakers
-//   oscillator.connect(gainNode);
-//   gainNode.connect(audioContext.destination);
+  // Fade out the sound to avoid clicks
+  //gainNode.gain.setValueAtTime(1, startTime);
+  gainNode.gain.linearRampToValueAtTime(1, startTime );
+  //gainNode.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+  gainNode.gain.setTargetAtTime(0, (startTime + duration)-0.05 , 0.015);
 
-//   // Set the type of wave and its frequency (a common bell tone is around 1000 Hz)
-//   oscillator.type = 'sine';
-//   oscillator.frequency.value = 1000;
+  // Add the event listener for the 'ended' event
+  oscillator.addEventListener('ended', endCallback);
+}
 
-//   // --- Create the "ring" and fade out effect ---
-//   const now = audioContext.currentTime;
+let playing = false;
+// Play the 6 pips
+function playBbcPips() {
+  if (playing){
+    return;
+  }
+  playing = true;
+  const shortPipDuration = 0.5; // in seconds
+  const longPipDuration = 2; // in seconds
+  const interval = 1; // 1 second between pips
 
-//   // Set the initial volume (gain)
-//   gainNode.gain.setValueAtTime(1, now);
+  // Play the first 5 short pips
+  for (let i = 0; i < 5; i++) {
+    playPip(shortPipDuration, i * interval, 880);
+  }
 
-//   // Schedule a fade-out over a short period (e.g., 0.5 seconds)
-//   gainNode.gain.exponentialRampToValueAtTime(0.001, now + 1.5);
+  // Play the 6th, long pip
+  playPip(longPipDuration, 5 * interval, 880, ()=>{
+    playing = false;
+  });
+  
+}
 
-//   // Start the oscillator
-//   oscillator.start();
-
-//   // Stop the oscillator after the sound has faded out to prevent it from running indefinitely
-//   oscillator.stop(now + 0.5);
-// }
-
-
-// function playPipSound() {
-//   // Create a new AudioContext
-//   // const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-
-//   // // Create an oscillator node
-//   const oscillator = audioContext.createOscillator();
-
-//   // Set the oscillator type and frequency
-//   // 'sine' is a smooth, pure tone. Other options include 'square', 'sawtooth', 'triangle'.
-//   oscillator.type = 'sine';
-//   // A frequency of 440 Hz is a standard A note.
-//   oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
-
-//   // Create a gain node to control the volume
-//   const gainNode = audioContext.createGain();
-//   // Set the volume to 0.5 (half volume)
-//   gainNode.gain.setValueAtTime(0.5, audioContext.currentTime);
-
-//   // Connect the oscillator to the gain node, and the gain node to the audio destination (speakers)
-//   oscillator.connect(gainNode);
-//   gainNode.connect(audioContext.destination);
-
-//   // Start the oscillator immediately
-//   oscillator.start();
-
-//   // Schedule the oscillator to stop after 1 second
-//   oscillator.stop(audioContext.currentTime + .9);
-
-//   // Log a message for confirmation
-//   console.log('Playing 1-second pip sound.');
-// }
-
-
-// function playLongPipSound() {
-//   // Create a new AudioContext
-//   // const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-
-//   // // Create an oscillator node
-//   const oscillator = audioContext.createOscillator();
-
-//   // Set the oscillator type and frequency
-//   // 'sine' is a smooth, pure tone. Other options include 'square', 'sawtooth', 'triangle'.
-//   oscillator.type = 'sine';
-//   // A frequency of 440 Hz is a standard A note.
-//   oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
-
-//   // Create a gain node to control the volume
-//   const gainNode = audioContext.createGain();
-//   // Set the volume to 0.5 (half volume)
-//   gainNode.gain.setValueAtTime(0.8, audioContext.currentTime);
-
-//   // Connect the oscillator to the gain node, and the gain node to the audio destination (speakers)
-//   oscillator.connect(gainNode);
-//   gainNode.connect(audioContext.destination);
-
-//   // Start the oscillator immediately
-//   oscillator.start();
-
-//   // Schedule the oscillator to stop after 1 second
-//   oscillator.stop(audioContext.currentTime + 2);
-
-//   // Log a message for confirmation
-//   console.log('Playing 2-second pip sound.');
-// }
