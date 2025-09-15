@@ -555,9 +555,12 @@ function resetSfx(){
 
 function initBellSound(){
   sfx = document.getElementById('sfx');
+  sfx.addEventListener('ended',(e) => {
+      sfx.currentTime = 0;
+  });
   sfx.play();
   sfx.pause();
-  sfx.currentTime = 0;
+  
 }
 
 
