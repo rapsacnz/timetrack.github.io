@@ -357,7 +357,7 @@ function updateSettingsForm() {
   breakTimesInput.value = settings.breakTimes.join(',');
   downtimeInput.value = settings.downTime;
   warningBellInput.value = settings.warnBellTime;
-  testMode.value = settings.testMode;
+  testModeInput.checked = settings.testMode;
 }
 
 // Reset to factory defaults
