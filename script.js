@@ -567,6 +567,7 @@ function initBellSound(){
 
 
 function playBellSound(){
+  sfx = document.getElementById('sfx');
   sfx.play();
 }
 
