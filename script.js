@@ -561,7 +561,16 @@ function resetSfx(){
 function initBellSound(){
   sfx = document.getElementById('sfx');
   sfx.addEventListener('ended',(e) => {
-      sfx.currentTime = 0;
+      //sfx.currentTime = 0;
+    console.log('ended');
+    playing = false;
+    sfx.play();
+    sfx.pause();  
+
+    // setTimeout(()=>{
+    //   sfx.pause();    
+    // },1);
+    
   });
   //sfx.src = dataUrl;
   sfx.play();
@@ -576,10 +585,14 @@ function initBellSound(){
   
 }
 
-
+let playing = false;
 function playBellSound(){
   //playBbcPips();
   //audioPlay(dataUrl);
+  if (playing){
+    return;
+  }
+  playing = true;
   sfx.play();
 
 }
@@ -619,7 +632,7 @@ function playPip(duration, delay, frequency = 880, endCallback = null) {
   oscillator.addEventListener('ended', endCallback);
 }
 
-let playing = false;
+// let playing = false;
 // Play the 6 pips
 function playBbcPips() {
   if (playing){
