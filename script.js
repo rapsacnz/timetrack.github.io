@@ -559,27 +559,28 @@ function resetSfx(){
 }
 
 function initBellSound(){
-  // sfx = document.getElementById('sfx');
-  // sfx.addEventListener('ended',(e) => {
-  //     sfx.currentTime = 0;
-  // });
-  // sfx.play();
-  // sfx.pause();
+  sfx = document.getElementById('sfx');
+  sfx.addEventListener('ended',(e) => {
+      sfx.currentTime = 0;
+  });
+  sfx.src = dataUrl;
+  sfx.play();
+  sfx.pause();
   // audioContext = new AudioContext();
   // const oscillator = audioContext.createOscillator();
   // oscillator.type = "sine";
   // oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
   // oscillator.connect(audioContext.destination);
   // oscillator.start();
-  //audioContext.suspend();
+  // audioContext.suspend();
   
 }
 
 
 function playBellSound(){
   //playBbcPips();
-  audioPlay(dataUrl);
-
+  //audioPlay(dataUrl);
+  sfx.play();
 
 }
 
