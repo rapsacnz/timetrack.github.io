@@ -82,7 +82,7 @@ const AudioContext = window.AudioContext || window.webkitAudioContext;
 if (!AudioContext) {
   alert("Web Audio API is not supported in this browser.");
 }
-const audioContext = new AudioContext();
+let audioContext;
 
 
 
@@ -565,6 +565,11 @@ function initBellSound(){
   // });
   // sfx.play();
   // sfx.pause();
+  audioContext = new AudioContext();
+  const oscillator = audioContext.createOscillator();
+  const gainNode = audioContext.createGain();
+  oscillator.start(0);
+  oscillator.stop(0 + 0.1);
   
 }
 
@@ -582,7 +587,7 @@ document.addEventListener('DOMContentLoaded', init);
 
 // Function to play a single pip
 function playPip(duration, delay, frequency = 880, endCallback = null) {
-  const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+  //const audioContext = new (window.AudioContext || window.webkitAudioContext)();
   const oscillator = audioContext.createOscillator();
   const gainNode = audioContext.createGain();
 
