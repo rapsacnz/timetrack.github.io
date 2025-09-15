@@ -209,7 +209,7 @@ function startTimer() {
       //playPipSound();
       //playBellSound();
       triggerWarningBell();
-      debug.textContent = `warning bell ${currentSegment.timeLeft}`;
+      //debug.textContent = `warning bell ${currentSegment.timeLeft}`;
     }
     // Check for warnings
     else if (currentSegment.timeLeft <= bellStart && currentSegment.timeLeft > hooterPips) {
@@ -224,7 +224,7 @@ function startTimer() {
     else if (currentSegment.timeLeft <= hooterPips && currentSegment.timeLeft > endTime) {
       //playBellSound();
       triggerWarningBell();
-      debug.textContent = `hooter ${currentSegment.timeLeft}`;
+      //debug.textContent = `hooter ${currentSegment.timeLeft}`;
     }
     // Check for warnings
     else if (currentSegment.timeLeft <= 0) {
@@ -565,7 +565,7 @@ function initBellSound(){
   });
   //sfx.src = dataUrl;
   sfx.play();
-  sfx.pause();
+  sfx.pause();  
   // audioContext = new AudioContext();
   // const oscillator = audioContext.createOscillator();
   // oscillator.type = "sine";
