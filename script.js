@@ -565,13 +565,13 @@ function initBellSound(){
   // });
   // sfx.play();
   // sfx.pause();
-  audioContext = new AudioContext();
-  const oscillator = audioContext.createOscillator();
-  oscillator.type = "sine";
-  oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
-  oscillator.connect(audioContext.destination);
-  oscillator.start();
-  audioContext.suspend();
+  // audioContext = new AudioContext();
+  // const oscillator = audioContext.createOscillator();
+  // oscillator.type = "sine";
+  // oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
+  // oscillator.connect(audioContext.destination);
+  // oscillator.start();
+  //audioContext.suspend();
   
 }
 
@@ -644,14 +644,17 @@ function playBbcPips() {
 
 // With this
 const audioPlay = async url => {
-    const context = new AudioContext();
-    const source = context.createBufferSource();
+    if (!audioContext){
+      audioContext = new AudioContext();   
+    }
+    
+    const source = audioContext.createBufferSource();
     const audioBuffer = await fetch(url)
       .then(res => res.arrayBuffer())
-      .then(ArrayBuffer => context.decodeAudioData(ArrayBuffer));
+      .then(ArrayBuffer => audioContext.decodeAudioData(ArrayBuffer));
   
     source.buffer = audioBuffer;
-    source.connect(context.destination);
+    source.connect(audioContext.destination);
     source.start();
 };
 
