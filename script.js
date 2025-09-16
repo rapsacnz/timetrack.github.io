@@ -132,7 +132,7 @@ function init() {
     )
   );
 
-  timerTick = settings.testMode ? 500 : timerTick;
+  timerTick = settings.testMode ? 501 : timerTick;
 
   // Update UI
   updateUI();
@@ -205,10 +205,11 @@ function startTimer() {
     let endTime = 0;
 
     // Check for pre warning pips
-    if (currentSegment.timeLeft <= bellPips && currentSegment.timeLeft > bellStart) {
+    if (currentSegment.timeLeft === bellPips && currentSegment.timeLeft > bellStart) {
       //playPipSound();
-      //playBellSound();
-      triggerWarningBell();
+      console.log('warning bell');
+      playBellSound();
+      //triggerWarningBell();
       //debug.textContent = `warning bell ${currentSegment.timeLeft}`;
     }
     // Check for warnings
@@ -218,12 +219,13 @@ function startTimer() {
         //triggerWarningBell();
         showWarningBar(`${currentSegment.warnBellMessage} ${currentSegment.timeLeft}s!!!`);
         //playLongPipSound();
-        console.log('warning bell');
+        // console.log('warning bell');
       }
     }
-    else if (currentSegment.timeLeft <= hooterPips && currentSegment.timeLeft > endTime) {
-      //playBellSound();
-      triggerWarningBell();
+    else if (currentSegment.timeLeft === hooterPips && currentSegment.timeLeft > endTime) {
+      console.log('warning hooter');
+      playBellSound();
+      //triggerWarningBell();
       //debug.textContent = `hooter ${currentSegment.timeLeft}`;
     }
     // Check for warnings
