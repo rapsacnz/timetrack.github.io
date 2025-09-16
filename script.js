@@ -69,7 +69,7 @@ const downtimeInput = document.getElementById('downtime');
 const warningBellInput = document.getElementById('warningBell');
 const testModeInput = document.getElementById('testMode');
 const bellButton = document.getElementById('bellButton');
-const testSoundButton = document.getElementById('testSound');
+// const testSoundButton = document.getElementById('testSound');
 
 
 const warningSection = document.getElementById('warningSection');
@@ -116,7 +116,7 @@ function init() {
   cancelResetBtn.addEventListener('click', cancelReset);
   bellButton.addEventListener('click', playBellSound);
   startFromSelect.addEventListener('change', handleStartFromChange);
-  testSoundButton.addEventListener('click', playBellSound);
+  // testSoundButton.addEventListener('click', playBellSound);
 
   // Close modal when clicking outside
   settingsModal.addEventListener('click', (e) => {
@@ -200,8 +200,8 @@ function startTimer() {
     currentSegment.timeLeft--;
 
     let bellStart = (settings.warnBellTime * SECONDS_IN_MINUTE);
-    let bellPips = 6 + bellStart;
-    let hooterPips = 6
+    let bellPips = 5 + bellStart;
+    let hooterPips = 5
     let endTime = 0;
 
     // Check for pre warning pips
