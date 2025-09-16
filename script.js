@@ -200,8 +200,8 @@ function startTimer() {
     currentSegment.timeLeft--;
 
     let bellStart = (settings.warnBellTime * SECONDS_IN_MINUTE);
-    let bellPips = 5 + bellStart;
-    let hooterPips = 5
+    let bellPips = 6 + bellStart;
+    let hooterPips = 6
     let endTime = 0;
 
     // Check for pre warning pips
