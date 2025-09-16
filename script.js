@@ -132,7 +132,7 @@ function init() {
     )
   );
 
-  timerTick = settings.testMode ? 200 : timerTick;
+  timerTick = settings.testMode ? 500 : timerTick;
 
   // Update UI
   updateUI();
@@ -562,14 +562,15 @@ function initBellSound(){
   sfx = document.getElementById('sfx');
   sfx.addEventListener('ended',(e) => {
       //sfx.currentTime = 0;
-    console.log('ended');
+    console.log('ended...starting again');
     playing = false;
     sfx.play();
-    sfx.pause();  
+    //sfx.pause();  
 
-    // setTimeout(()=>{
-    //   sfx.pause();    
-    // },1);
+    setTimeout(()=>{
+      console.log('pausing');
+      sfx.pause();    
+    },10);
     
   });
   //sfx.src = dataUrl;
