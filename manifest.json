@@ -1,0 +1,20 @@
+{
+  "name": "Netball Timer",
+  "short_name": "Timer",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#30babc", 
+  "icons": [
+    {
+      "src": "/icons/netball-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/netball-icon-512.png", 
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
