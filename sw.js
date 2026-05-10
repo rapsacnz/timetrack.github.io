@@ -1,11 +1,10 @@
 const CACHE_NAME = 'v1_cache';
 const ASSETS_TO_CACHE = [
-  '/',
-  '/index.html',
-  '/styles.css',
-  '/script.js',
-  '/icons/netball-icon-192.png',
-  '/icons/netball-icon-512.png'
+  'index.html',
+  'styles.css',
+  'script.js',
+  'icons/netball-icon-192.png',
+  'icons/netball-icon-512.png'
 ];
 
 // Install the service worker and cache assets
